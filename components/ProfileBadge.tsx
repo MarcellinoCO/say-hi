@@ -7,7 +7,7 @@ const ProfileBadge = ({
   className?: string,
   user: firebase.default.User | null | undefined
 }) => {
-  return (
+  return (<>
     <div className={"flex flex-row-reverse items-center " + className ?? ""}>
       <Image
         width={32}
@@ -20,6 +20,6 @@ const ProfileBadge = ({
         {user?.displayName || "Anonymous"}
       </p>
     </div>
-  )
+  </>)
 }
 export default ProfileBadge

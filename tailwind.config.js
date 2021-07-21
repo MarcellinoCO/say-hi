@@ -5,10 +5,13 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {}
   },
   variants: {
-    extend: {},
+    extend: {}
   },
-  plugins: []
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio')
+  ]
 }

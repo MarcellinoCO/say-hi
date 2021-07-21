@@ -1,6 +1,7 @@
 import Head from "next/head"
 
-import Navbar from "@components/Navbar"
+import InputBar from "@components/bars/InputBar"
+import NavBar from "@components/bars/NavBar"
 
 import firebaseConfig from "@utils/firebaseConfig"
 import firebase from "firebase/app"
@@ -20,17 +21,26 @@ const db = firebase.firestore()
 export default function ChatPage() {
   const [user] = useAuthState(auth)
 
-  return (
-    <div>
-      <Head>
-        <title>Say Hi!</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  const uploadMessage = (message: string) => {
+    console.log(message)
+  }
 
-      <Navbar user={user} />
-      <div className="container mx-auto bg-green-100 w-screen h-screen">
-        
-      </div>
+  return (<>
+    <Head>
+      <title>Say Hi!</title>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
+    <div className="flex flex-col justify-between w-screen h-screen font-sans">
+      <NavBar
+        className="w-screen h-12 px-4"
+        user={user}
+      />
+
+      <InputBar
+        className="w-screen h-16 px-4"
+        onMessageSend={uploadMessage}
+      />
     </div>
-  )
+  </>)
 }
