@@ -39,6 +39,7 @@ export default function ChatPage() {
 
       <InputBar
         className="w-screen h-16 px-4"
+        isEnabled={user != null}
         onMessageSend={uploadMessage}
       />
     </div>
