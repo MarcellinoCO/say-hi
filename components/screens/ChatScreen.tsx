@@ -38,7 +38,7 @@ const ChatScreen = ({
         userId: doc.userId,
         userName: doc.userName,
         userPhoto: doc.userPhoto,
-        isOwner: user?.displayName == doc.userId
+        isOwner: user?.displayName === doc.userName
       })
     })
 

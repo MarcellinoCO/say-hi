@@ -12,13 +12,13 @@ const ChatsByUser = ({
   chatGroupsByUser: ChatGroupByUser[]
 }) => {
   return (<>
-    <div className={className + " flex flex-col"}>
+    <div className={className + " flex flex-col pb-4"}>
       {chatGroupsByUser.map((chatGroup) => (
         <div
           key={chatGroup.userName + chatGroup.chats[0].id}
           className={"flex mt-4 "
-            + (!chatGroup.chats[0].isOwner && "flex-row ")
-            + (chatGroup.chats[0].isOwner && "flex-row-reverse ")}
+            + (!chatGroup.chats[0].isOwner && " flex-row ")
+            + (chatGroup.chats[0].isOwner && " flex-row-reverse ")}
         >
           <div className="rounded-full border-2 border-dashed border-gray-800" >
             <Image
@@ -30,12 +30,13 @@ const ChatsByUser = ({
             />
           </div>
 
-          <div className="flex flex-col px-2">
+          <div className={"flex flex-col px-2 "
+            + (chatGroup.chats[0].isOwner && " items-end ")}
+          >
             <p className="text-xs">{chatGroup.userName}</p>
 
-            <div className="flex flex-col mt-1">
+            <div className={"flex flex-col mt-1 " + (chatGroup.chats[0].isOwner && " items-end ")}>
               {groupChatsByTime(chatGroup.chats).map((chatGroupTime) => {
-                console.log("Render", chatGroupTime)
                 return <ChatsByTime
                   key={"ChatByTime" + chatGroup.userName + chatGroupTime.time + chatGroupTime.chats[0].id}
                   chatGroupsByTime={chatGroupTime}

@@ -4,7 +4,6 @@ import { ChatGroupByTime } from "@models/ChatGroupByTime"
 function groupChatsByTime(chats: Chat[]): ChatGroupByTime[] {
   if (!chats || chats.length === 0) return []
 
-  console.log("Input", chats)
   // Format: 'HH:mm'.
   const timeFormatter = Intl.DateTimeFormat("en-GB", { timeStyle: "short" })
 
@@ -37,7 +36,6 @@ function groupChatsByTime(chats: Chat[]): ChatGroupByTime[] {
     })
   }
 
-  console.log("Output", groupedChat)
   return groupedChat
 }
 export default groupChatsByTime
