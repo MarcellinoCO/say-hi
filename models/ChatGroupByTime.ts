@@ -1,6 +1,6 @@
 import { Chat } from "./Chat";
 
-export type ChatGroupByDate = {
-  date: string
+export type ChatGroupByTime = {
+  time: string
   chats: Chat[]
 }

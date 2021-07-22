@@ -47,16 +47,13 @@ const ChatScreen = ({
   }, [user, chats])
 
   return (<>
-    <div className={className + " overflow-y-auto flex flex-col justify-center items-center bg-gray-400"}>
-      {chatGroupsByDate ? (
+    <div className={className + " overflow-y-auto flex flex-col justify-center items-center pb-4 bg-gray-400"}>
+      {!isChatLoading ? (
+        chatGroupsByDate &&
         <ChatsByDate
-          className="p-4"
+          className="px-4 pb-4"
           chatGroupsByDate={chatGroupsByDate}
         />
-      ) : null}
-
-      {!isChatLoading ? (
-        null
       ) : (
         <LoadingIndicator>
           Loading chats...

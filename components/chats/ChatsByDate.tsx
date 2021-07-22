@@ -1,18 +1,36 @@
+import { useEffect, useState } from "react"
+
+import { Chat } from "@models/Chat"
 import { ChatGroupByDate } from "@models/ChatGroupByDate"
+import { ChatGroupByUser } from "@models/ChatGroupByUser"
+
+import ChatsByUser from "./ChatsByUser"
+import DateHeader from "./DateHeader"
+import groupChatsByUser from "@utils/chats/groupChatsByUser"
 
 const ChatsByDate = ({
   className = "",
   chatGroupsByDate
 }: {
   className?: string,
-  chatGroupsByDate?: ChatGroupByDate[]
+  chatGroupsByDate: ChatGroupByDate[]
 }) => {
   return (<>
-    <div className={className + " overflow-y-auto flex flex-col w-full h-full"}>
+    <div className={className + " flex flex-col w-full h-full"}>
       {chatGroupsByDate?.map((chatGroup) => (
-        <div key={chatGroup.date}>
-          <p className="sticky top-0">{chatGroup.date}</p>
-          {chatGroup.chats.map((chat) => <p key={chat.id}>{chat.message + " from " + chat.userName + " at " + chat.createdAt.toDate()}</p>)}
+        <div
+          key={chatGroup.date}
+          className="flex flex-col items-center"
+        >
+          <DateHeader
+            className="mt-4"
+            dateString={chatGroup.date}
+          />
+
+          <ChatsByUser
+            className="w-full"
+            chatGroupsByUser={groupChatsByUser(chatGroup.chats)}
+          />
         </div>
       ))}
     </div>
