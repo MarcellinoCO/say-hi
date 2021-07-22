@@ -3,11 +3,11 @@ import { FormButton } from "@components/Button"
 
 const InputBar = ({
   className = "",
-  isEnabled = true,
+  isEnabled,
   onMessageSend
 }: {
   className?: string,
-  isEnabled?: boolean,
+  isEnabled: boolean,
   onMessageSend: (message: string) => void
 }) => {
   const [message, setMessage] = useState("")
@@ -20,14 +20,14 @@ const InputBar = ({
   }
 
   return (<>
-    <div className={className + " flex flex-row justify-between md:justify-center items-center bg-gray-200"}>
+    <div className={className + " flex flex-row justify-between md:justify-center items-center bg-gray-200 "}>
       <form
         className="flex flex-row items-center w-full h-full"
         onSubmit={sendMessage}
       >
         <input
-          className={"w-full rounded-full border-2 "
-            + "focus:border-transparent focus:ring-2 focus:ring-yellow-400"}
+          className={" w-full rounded-full border-2 "
+            + " focus:border-transparent focus:ring-2 focus:ring-yellow-400 "}
 
           placeholder={isEnabled ? "Say hi!" : "Please sign in to enable chat!"}
           value={message}

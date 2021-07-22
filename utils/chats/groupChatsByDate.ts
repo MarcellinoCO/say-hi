@@ -33,10 +33,10 @@ function groupChatsByDate(chats: Chat[]): ChatGroupByDate[] {
         chats: [currentChat]
       })
     }
-
     return currentChat
   })
 
   return groupedChat
 }
+
 export default groupChatsByDate

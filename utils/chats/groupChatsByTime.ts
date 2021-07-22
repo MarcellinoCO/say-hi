@@ -38,4 +38,5 @@ function groupChatsByTime(chats: Chat[]): ChatGroupByTime[] {
 
   return groupedChat
 }
+
 export default groupChatsByTime

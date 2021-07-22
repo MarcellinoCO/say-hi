@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react"
-
-import { Chat } from "@models/Chat"
 import { ChatGroupByDate } from "@models/ChatGroupByDate"
-import { ChatGroupByUser } from "@models/ChatGroupByUser"
 
-import ChatsByUser from "./ChatsByUser"
-import DateHeader from "./DateHeader"
+import ChatsByUser from "@components/chats/ChatsByUser"
+import DateHeader from "@components/chats/DateHeader"
+
 import groupChatsByUser from "@utils/chats/groupChatsByUser"
 
 const ChatsByDate = ({
@@ -16,14 +13,16 @@ const ChatsByDate = ({
   chatGroupsByDate: ChatGroupByDate[]
 }) => {
   return (<>
-    <div className={className + " flex flex-col w-full h-full"}>
-      {chatGroupsByDate?.map((chatGroup) => (
+    <div className={className + " flex flex-col w-full h-full "}>
+      {chatGroupsByDate.map((chatGroup) => (
         <div
-          key={chatGroup.date}
+          key={`DateChatGroup: ${chatGroup.date}`}
           className="flex flex-col items-center"
         >
           <DateHeader
+            key={`DateHeader: ${chatGroup.date}`}
             className="mt-4"
+
             dateString={chatGroup.date}
           />
 
@@ -36,4 +35,5 @@ const ChatsByDate = ({
     </div>
   </>)
 }
+
 export default ChatsByDate

@@ -14,13 +14,13 @@ const SignInScreen = ({
 
   const signIn: FormEventHandler = async (event) => {
     event.preventDefault()
-    setIsSigningIn(true)
 
+    setIsSigningIn(true)
     setIsSigningIn(await onSignIn())
   }
 
   return (<>
-    <div className={"flex flex-col justify-center items-center " + className}>
+    <div className={" flex flex-col justify-center items-center " + className}>
       {isSigningIn && (
         <LoadingIndicator />
       )}
@@ -39,4 +39,5 @@ const SignInScreen = ({
     </div>
   </>)
 }
+
 export default SignInScreen

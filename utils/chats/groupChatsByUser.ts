@@ -31,4 +31,5 @@ function groupChatsByDate(chats: Chat[]): ChatGroupByUser[] {
   
   return groupedChat
 }
+
 export default groupChatsByDate

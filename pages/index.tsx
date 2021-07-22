@@ -1,10 +1,5 @@
 import Head from "next/head"
 
-import InputBar from "@components/bars/InputBar"
-import NavBar from "@components/bars/NavBar"
-import ChatScreen from "@components/screens/ChatScreen"
-import SignInScreen from "@components/screens/SignInScreen"
-
 import firebaseConfig from "@utils/firebaseConfig"
 import firebase from "firebase/app"
 import "firebase/firestore"
@@ -12,8 +7,11 @@ import "firebase/auth"
 
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useEffect, useMemo, useState } from "react"
-import { Data } from "react-firebase-hooks/firestore/dist/firestore/types"
+
+import InputBar from "@components/bars/InputBar"
+import NavBar from "@components/bars/NavBar"
+import ChatScreen from "@components/screens/ChatScreen"
+import SignInScreen from "@components/screens/SignInScreen"
 
 /** Initialize Firebase app if none available */
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
@@ -27,8 +25,8 @@ export default function ChatPage() {
   const [user] = useAuthState(auth)
   const signInWithGoogle = async () => {
     if (user) return false
-    const provider = new firebase.auth.GoogleAuthProvider()
 
+    const provider = new firebase.auth.GoogleAuthProvider()
     return auth.signInWithPopup(provider)
       .then((_) => {
         return true
@@ -46,7 +44,7 @@ export default function ChatPage() {
   const query = chatsRef.orderBy("createdAt")
   const [chatsCollection, isChatLoading] = useCollectionData(query, { idField: "id" })
 
-  const uploadMessage = (message: string) => {
+  const uploadMessage = async (message: string) => {
     if (!auth.currentUser) return
 
     const { uid, displayName, photoURL } = auth.currentUser
@@ -68,6 +66,7 @@ export default function ChatPage() {
     <div className="flex flex-col justify-between w-screen h-screen font-sans">
       <NavBar
         className="w-screen h-14 px-4"
+
         user={user}
         onProfileClicked={signOut}
       />
@@ -75,6 +74,7 @@ export default function ChatPage() {
       {user ? (
         <ChatScreen
           className="w-full h-full"
+
           user={user}
           chats={chatsCollection}
           isChatLoading={isChatLoading}
@@ -82,7 +82,8 @@ export default function ChatPage() {
       ) : (
         <SignInScreen
           className="w-full h-full"
-          onSignIn={signInWithGoogle} />
+          onSignIn={signInWithGoogle}
+        />
       )}
 
       <InputBar

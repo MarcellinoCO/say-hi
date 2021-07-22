@@ -1,7 +1,8 @@
 import Image from "next/image"
 
 import { ChatGroupByUser } from "@models/ChatGroupByUser"
-import ChatsByTime from "./ChatsByTime"
+import ChatsByTime from "@components/chats/ChatsByTime"
+
 import groupChatsByTime from "@utils/chats/groupChatsByTime"
 
 const ChatsByUser = ({
@@ -12,11 +13,11 @@ const ChatsByUser = ({
   chatGroupsByUser: ChatGroupByUser[]
 }) => {
   return (<>
-    <div className={className + " flex flex-col pb-4"}>
+    <div className={className + " flex flex-col pb-4 "}>
       {chatGroupsByUser.map((chatGroup) => (
         <div
-          key={chatGroup.userName + chatGroup.chats[0].id}
-          className={"flex mt-4 "
+          key={`UserChatGroup: ${chatGroup.userName} ${chatGroup.chats[0].id}`}
+          className={" flex mt-4 "
             + (!chatGroup.chats[0].isOwner && " flex-row ")
             + (chatGroup.chats[0].isOwner && " flex-row-reverse ")}
         >
@@ -25,23 +26,22 @@ const ChatsByUser = ({
               className="rounded-full"
               width={28}
               height={28}
+
               src={chatGroup.userPhoto}
               alt="Profile picture"
             />
           </div>
 
-          <div className={"flex flex-col px-2 "
-            + (chatGroup.chats[0].isOwner && " items-end ")}
-          >
+          <div className={" flex flex-col px-2 " + (chatGroup.chats[0].isOwner && " items-end ")}>
             <p className="text-xs">{chatGroup.userName}</p>
 
-            <div className={"flex flex-col mt-1 " + (chatGroup.chats[0].isOwner && " items-end ")}>
-              {groupChatsByTime(chatGroup.chats).map((chatGroupTime) => {
-                return <ChatsByTime
-                  key={"ChatByTime" + chatGroup.userName + chatGroupTime.time + chatGroupTime.chats[0].id}
+            <div className={" flex flex-col mt-1 " + (chatGroup.chats[0].isOwner && " items-end ")}>
+              {groupChatsByTime(chatGroup.chats).map((chatGroupTime) => (
+                <ChatsByTime
+                  key={`TimeChatGroup: ${chatGroupTime.time} ${chatGroup.userName} ${chatGroupTime.chats[0].id}`}
                   chatGroupsByTime={chatGroupTime}
                 />
-              })}
+              ))}
             </div>
           </div>
         </div>
@@ -49,4 +49,5 @@ const ChatsByUser = ({
     </div>
   </>)
 }
+
 export default ChatsByUser

@@ -8,7 +8,7 @@ const LoadingIndicator = ({
   children?: React.ReactElement | string
 }) => {
   return (<>
-    <div className={className + " flex flex-col justify-center"}>
+    <div className={className + " flex flex-col justify-center "}>
       <Image
         className="animate-spin"
         width={50}
@@ -23,4 +23,5 @@ const LoadingIndicator = ({
     </div>
   </>)
 }
+
 export default LoadingIndicator

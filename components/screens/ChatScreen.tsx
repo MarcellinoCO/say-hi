@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react"
 import { Data } from "react-firebase-hooks/firestore/dist/firestore/types"
 
-import LoadingIndicator from "@components/LoadingIndicator"
-import groupChatsByDate from "@utils/chats/groupChatsByDate"
-
 import { Chat } from "@models/Chat"
 import { ChatGroupByDate } from "@models/ChatGroupByDate"
+
 import ChatsByDate from "@components/chats/ChatsByDate"
+import LoadingIndicator from "@components/LoadingIndicator"
+
+import groupChatsByDate from "@utils/chats/groupChatsByDate"
 
 const ChatScreen = ({
   className = "",
   user,
   chats,
-  isChatLoading = true,
+  isChatLoading,
 }: {
   className?: string,
-  user?: firebase.default.User
-  chats?: Data[],
+  user: firebase.default.User | undefined
+  chats: Data[] | undefined,
   isChatLoading: boolean
 }) => {
   const [chatGroupsByDate, setChatGroupsByDate] = useState<ChatGroupByDate[]>([])
@@ -33,12 +34,15 @@ const ChatScreen = ({
     chats?.forEach((doc) => {
       chatsData.push({
         id: doc.id,
+
         message: doc.message,
         createdAt: doc.createdAt,
+
         userId: doc.userId,
         userName: doc.userName,
         userPhoto: doc.userPhoto,
-        isOwner: user?.displayName === doc.userName
+
+        isOwner: user?.displayName == doc.userName
       })
     })
 
@@ -47,13 +51,14 @@ const ChatScreen = ({
   }, [user, chats])
 
   return (<>
-    <div className={className + " overflow-y-auto flex flex-col justify-center items-center pb-4 bg-gray-400"}>
+    <div className={className + " overflow-y-auto flex flex-col justify-center items-center pb-4 bg-gray-300 "}>
       {!isChatLoading ? (
-        chatGroupsByDate &&
-        <ChatsByDate
-          className="px-4 pb-4"
-          chatGroupsByDate={chatGroupsByDate}
-        />
+        chatGroupsByDate && (
+          <ChatsByDate
+            className="px-4 pb-4"
+            chatGroupsByDate={chatGroupsByDate}
+          />
+        )
       ) : (
         <LoadingIndicator>
           Loading chats...
@@ -62,4 +67,5 @@ const ChatScreen = ({
     </div>
   </>)
 }
+
 export default ChatScreen

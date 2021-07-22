@@ -1,5 +1,5 @@
 import { ChatGroupByTime } from "@models/ChatGroupByTime"
-import ChatBubble from "./ChatBubble"
+import ChatBubble from "@components/chats/ChatBubble"
 
 const ChatsByTime = ({
   className = "",
@@ -9,11 +9,12 @@ const ChatsByTime = ({
   chatGroupsByTime: ChatGroupByTime
 }) => {
   return (<>
-    <div className={className + " flex flex-col mt-1"}>
+    <div className={className + " flex flex-col mt-1 "}>
       {chatGroupsByTime.chats.map((chat, index) => (
         <ChatBubble
-          key={chat.id}
+          key={`ChatBubble: ${chat.id}`}
           chat={chat}
+          
           isFirst={index == 0}
           isLast={index == chatGroupsByTime.chats.length - 1}
         />
@@ -21,4 +22,5 @@ const ChatsByTime = ({
     </div>
   </>)
 }
+
 export default ChatsByTime
