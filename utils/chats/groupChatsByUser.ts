@@ -12,6 +12,8 @@ function groupChatsByDate(chats: Chat[]): ChatGroupByUser[] {
     chats: [chats[0]]
   })
 
+  if (chats.length == 1) return groupedChat
+
   chats.reduce((_, currentChat) => {
     if (groupedChat[groupedChat.length - 1].userName === currentChat.userName) {
       // The previous chat has the same sender. Add current chat to the inner array.
@@ -26,8 +28,7 @@ function groupChatsByDate(chats: Chat[]): ChatGroupByUser[] {
     }
     return currentChat
   })
-
-  console.log("Hai", groupedChat)
+  
   return groupedChat
 }
 export default groupChatsByDate

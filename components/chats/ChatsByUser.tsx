@@ -1,6 +1,8 @@
 import Image from "next/image"
+
 import { ChatGroupByUser } from "@models/ChatGroupByUser"
-import ChatBubble from "./ChatBubble"
+import ChatsByTime from "./ChatsByTime"
+import groupChatsByTime from "@utils/chats/groupChatsByTime"
 
 const ChatsByUser = ({
   className = "",
@@ -32,14 +34,13 @@ const ChatsByUser = ({
             <p className="text-xs">{chatGroup.userName}</p>
 
             <div className="flex flex-col mt-1">
-              {chatGroup.chats.map((chat, index) => (
-                <ChatBubble
-                  key={chat.id}
-                  chat={chat}
-                  isFirst={index == 0}
-                  isLast={index == chatGroup.chats.length - 1}
+              {groupChatsByTime(chatGroup.chats).map((chatGroupTime) => {
+                console.log("Render", chatGroupTime)
+                return <ChatsByTime
+                  key={"ChatByTime" + chatGroup.userName + chatGroupTime.time + chatGroupTime.chats[0].id}
+                  chatGroupsByTime={chatGroupTime}
                 />
-              ))}
+              })}
             </div>
           </div>
         </div>

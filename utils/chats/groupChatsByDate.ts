@@ -16,6 +16,8 @@ function groupChatsByDate(chats: Chat[]): ChatGroupByDate[] {
     chats: [chats[0]]
   })
 
+  if (chats.length == 1) return groupedChat
+
   chats.reduce((_, currentChat) => {
     // Get the formatted date for current chat.
     var chatDate = currentChat.createdAt.toDate()
