@@ -1,13 +1,14 @@
 import { FormEventHandler, useState } from "react"
+import { FormButton } from "@components/Button"
 
 const InputBar = ({
   className = "",
   isEnabled = true,
-  onMessageSend = (_: string) => { }
+  onMessageSend
 }: {
   className?: string,
   isEnabled?: boolean,
-  onMessageSend?: (message: string) => void
+  onMessageSend: (message: string) => void
 }) => {
   const [message, setMessage] = useState("")
 
@@ -19,7 +20,7 @@ const InputBar = ({
   }
 
   return (<>
-    <div className={"flex flex-row justify-between md:justify-center items-center bg-gray-200 " + className}>
+    <div className={className + " flex flex-row justify-between md:justify-center items-center bg-gray-200"}>
       <form
         className="flex flex-row items-center w-full h-full"
         onSubmit={sendMessage}
@@ -36,15 +37,12 @@ const InputBar = ({
           type="text"
         />
 
-        <button
-          className={"w-10 h-10 ml-4 bg-yellow-400 rounded-full border-2 border-gray-800 "
-            + ((message && isEnabled) && "transform transition-transform duration-100 hover:scale-110 ")
-            + ((!message || !isEnabled) && "filter grayscale cursor-default ")}
-
-          disabled={!message || !isEnabled}
-          type="submit">
+        <FormButton
+          className="w-10 h-10 ml-4 bg-yellow-400"
+          isEnabled={message !== "" && isEnabled}
+        >
           👋
-        </button>
+        </FormButton>
       </form>
     </div>
   </>)

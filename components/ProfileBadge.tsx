@@ -1,14 +1,19 @@
 import Image from "next/image"
 
-const ProfileBadge = ({ 
+const ProfileBadge = ({
   className = "",
-  user = null
+  user = null,
+  onClick = () => { }
 }: {
   className?: string,
-  user: firebase.default.User | null | undefined
+  user: firebase.default.User | null | undefined,
+  onClick?: () => void
 }) => {
   return (<>
-    <div className={"flex flex-row-reverse items-center " + className ?? ""}>
+    <div
+      className={className + " flex flex-row-reverse items-center cursor-pointer"}
+      onClick={onClick}
+    >
       <Image
         width={32}
         height={32}
@@ -16,7 +21,7 @@ const ProfileBadge = ({
         alt="Profile picture"
       />
 
-      <p className="mr-2">
+      <p className="hidden md:block mr-2">
         {user?.displayName || "Anonymous"}
       </p>
     </div>

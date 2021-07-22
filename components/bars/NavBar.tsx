@@ -2,13 +2,15 @@ import ProfileBadge from "@components/ProfileBadge"
 
 const NavBar = ({
   className = "",
-  user = null
+  user = null,
+  onProfileClicked = () => { }
 }: {
   className?: string,
-  user: firebase.default.User | null | undefined
+  user: firebase.default.User | null | undefined,
+  onProfileClicked?: () => void
 }) => {
   return (<>
-    <div className={"flex flex-row justify-between md:justify-center items-center bg-gray-200 " + className}>
+    <div className={className + " flex flex-row justify-between md:justify-center items-center bg-gray-200"}>
       <h1 className="font-semibold">
         👋 Say Hi!
       </h1>
@@ -16,6 +18,7 @@ const NavBar = ({
       <ProfileBadge
         className="md:absolute md:right-3"
         user={user}
+        onClick={onProfileClicked}
       />
     </div>
   </>)
