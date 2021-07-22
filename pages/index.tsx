@@ -12,7 +12,8 @@ import "firebase/auth"
 
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { Data } from "react-firebase-hooks/firestore/dist/firestore/types"
 
 /** Initialize Firebase app if none available */
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
@@ -35,7 +36,7 @@ export default function ChatPage() {
         return false
       })
   }
-  
+
   const signOut = () => {
     if (user) auth.signOut()
   }
@@ -43,7 +44,7 @@ export default function ChatPage() {
   // Database logic.
   const chatsRef = db.collection("chats")
   const query = chatsRef.orderBy("createdAt")
-  const [chats, isChatLoading] = useCollectionData(query, { idField: "id" })
+  const [chatsCollection, isChatLoading] = useCollectionData(query, { idField: "id" })
 
   const uploadMessage = (message: string) => {
     if (!auth.currentUser) return
@@ -74,7 +75,8 @@ export default function ChatPage() {
       {user ? (
         <ChatScreen
           className="w-full h-full"
-          chats={chats}
+          user={user}
+          chats={chatsCollection}
           isChatLoading={isChatLoading}
         />
       ) : (

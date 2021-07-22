@@ -1,7 +1,7 @@
 import { FormEventHandler, useState } from "react"
-import Image from "next/image"
 
 import { FormButton } from "@components/Button"
+import LoadingIndicator from "@components/LoadingIndicator"
 
 const SignInScreen = ({
   className = "",
@@ -22,13 +22,7 @@ const SignInScreen = ({
   return (<>
     <div className={"flex flex-col justify-center items-center " + className}>
       {isSigningIn && (
-        <Image
-          className="animate-spin"
-          width={50}
-          height={50}
-          src="/icons/ic_loading.svg"
-          alt="Loading icon"
-        />
+        <LoadingIndicator />
       )}
 
       <form

@@ -14,12 +14,18 @@ const ProfileBadge = ({
       className={className + " flex flex-row-reverse items-center cursor-pointer"}
       onClick={onClick}
     >
-      <Image
-        width={32}
-        height={32}
-        src={user?.photoURL || "/icons/ic_profile.svg"}
-        alt="Profile picture"
-      />
+      <div
+        className={"flex rounded-full border-2 border-dashed border-gray-800 "
+          + (user && "transform transition-transform duration-100 hover:scale-110 ")}
+      >
+        <Image
+          className="rounded-full"
+          width={28}
+          height={28}
+          src={user?.photoURL || "/icons/ic_profile.svg"}
+          alt="Profile picture"
+        />
+      </div>
 
       <p className="hidden md:block mr-2">
         {user?.displayName || "Anonymous"}
