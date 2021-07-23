@@ -15,14 +15,17 @@ const ChatBubble = ({
   const timeFormatter = Intl.DateTimeFormat("en-GB", { timeStyle: "short" })
 
   return (<>
-    <div className={" flex " + (chat?.isOwner && " flex-row-reverse ") + (!chat?.isOwner && " flex-row ")}>
+    <div className={" flex w-full " + (chat?.isOwner && " flex-row-reverse ") + (!chat?.isOwner && " flex-row ")}>
       <div
         className={className + " flex flex-col px-4 py-2 bg-gray-100 "
           + (isFirst && chat?.isOwner && " rounded-b-xl rounded-l-xl ")
           + (isFirst && !chat?.isOwner && " rounded-r-xl rounded-b-xl ")
           + (!isFirst && " mt-1 rounded-xl ")}
       >
-        <p className={" font-semibold " + (chat?.isOwner && " text-right ") + (!chat?.isOwner && " text-left ")}>
+        <p className={" font-semibold break-all "
+          + (chat?.isOwner && " text-right ")
+          + (!chat?.isOwner && " text-left ")}
+        >
           {chat?.message}
         </p>
       </div>

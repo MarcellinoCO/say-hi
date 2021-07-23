@@ -32,7 +32,7 @@ const ChatsByUser = ({
             />
           </div>
 
-          <div className={" flex flex-col px-2 " + (chatGroup.chats[0].isOwner && " items-end ")}>
+          <div className={" flex flex-col w-full px-2 " + (chatGroup.chats[0].isOwner && " items-end ")}>
             <p className="text-xs">{chatGroup.userName}</p>
 
             <div className={" flex flex-col mt-1 " + (chatGroup.chats[0].isOwner && " items-end ")}>
