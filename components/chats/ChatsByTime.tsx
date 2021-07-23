@@ -3,10 +3,12 @@ import ChatBubble from "@components/chats/ChatBubble"
 
 const ChatsByTime = ({
   className = "",
-  chatGroupsByTime
+  chatGroupsByTime,
+  searchQuery
 }: {
   className?: string,
-  chatGroupsByTime: ChatGroupByTime
+  chatGroupsByTime: ChatGroupByTime,
+  searchQuery?: string[]
 }) => {
   return (<>
     <div className={className + " flex flex-col mt-1 "}>
@@ -14,6 +16,7 @@ const ChatsByTime = ({
         <ChatBubble
           key={`ChatBubble: ${chat.id}`}
           chat={chat}
+          searchQuery={searchQuery}
           
           isFirst={index == 0}
           isLast={index == chatGroupsByTime.chats.length - 1}

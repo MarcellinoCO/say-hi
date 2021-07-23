@@ -7,10 +7,12 @@ import groupChatsByUser from "@utils/chats/groupChatsByUser"
 
 const ChatsByDate = ({
   className = "",
-  chatGroupsByDate
+  chatGroupsByDate,
+  searchQuery
 }: {
   className?: string,
-  chatGroupsByDate: ChatGroupByDate[]
+  chatGroupsByDate: ChatGroupByDate[],
+  searchQuery?: string[]
 }) => {
   return (<>
     <div className={className + " flex flex-col w-full h-full "}>
@@ -28,7 +30,9 @@ const ChatsByDate = ({
 
           <ChatsByUser
             className="w-full"
+            
             chatGroupsByUser={groupChatsByUser(chatGroup.chats)}
+            searchQuery={searchQuery}
           />
         </div>
       ))}

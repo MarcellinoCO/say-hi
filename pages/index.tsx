@@ -61,7 +61,7 @@ export default function ChatPage() {
 
   // Search logic.
   const [isSearching, setIsSearching] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState<string[]>([])
 
   return (<>
     <Head>
@@ -75,9 +75,9 @@ export default function ChatPage() {
           className="w-screen h-14 px-4"
           isEnabled={true}
 
-          onSearch={(query: string) => setSearchQuery(query)}
+          onSearch={(query: string) => setSearchQuery(query.split(" "))}
           onClose={() => {
-            setSearchQuery("")
+            setSearchQuery([])
             setIsSearching(false)
           }}
         />
@@ -98,6 +98,7 @@ export default function ChatPage() {
           user={user}
           chats={chatsCollection}
           isChatLoading={isChatLoading}
+          searchQuery={searchQuery}
         />
       ) : (
         <SignInScreen

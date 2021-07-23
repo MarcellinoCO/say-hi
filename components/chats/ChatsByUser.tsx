@@ -7,10 +7,12 @@ import groupChatsByTime from "@utils/chats/groupChatsByTime"
 
 const ChatsByUser = ({
   className = "",
-  chatGroupsByUser
+  chatGroupsByUser,
+  searchQuery
 }: {
   className?: string,
-  chatGroupsByUser: ChatGroupByUser[]
+  chatGroupsByUser: ChatGroupByUser[],
+  searchQuery?: string[]
 }) => {
   return (<>
     <div className={className + " flex flex-col pb-4 "}>
@@ -39,7 +41,9 @@ const ChatsByUser = ({
               {groupChatsByTime(chatGroup.chats).map((chatGroupTime) => (
                 <ChatsByTime
                   key={`TimeChatGroup: ${chatGroupTime.time} ${chatGroup.userName} ${chatGroupTime.chats[0].id}`}
+
                   chatGroupsByTime={chatGroupTime}
+                  searchQuery={searchQuery}
                 />
               ))}
             </div>

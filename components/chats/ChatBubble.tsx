@@ -1,3 +1,4 @@
+import Highlighter from "react-highlight-words"
 import { Chat } from "@models/Chat"
 
 const ChatBubble = ({
@@ -5,11 +6,13 @@ const ChatBubble = ({
   chat,
   isFirst,
   isLast,
+  searchQuery
 }: {
   className?: string,
   chat: Chat,
   isFirst: boolean,
-  isLast: boolean
+  isLast: boolean,
+  searchQuery?: string[]
 }) => {
   // Format: 'HH:mm'.
   const timeFormatter = Intl.DateTimeFormat("en-GB", { timeStyle: "short" })
@@ -22,11 +25,17 @@ const ChatBubble = ({
           + (isFirst && !chat?.isOwner && " rounded-r-xl rounded-b-xl ")
           + (!isFirst && " mt-1 rounded-xl ")}
       >
+        
         <p className={" font-semibold break-all "
           + (chat?.isOwner && " text-right ")
           + (!chat?.isOwner && " text-left ")}
         >
-          {chat?.message}
+          <Highlighter 
+            highlightClassName="bg-yellow-200"
+            searchWords={searchQuery ?? []}
+            autoEscape={true}
+            textToHighlight={chat?.message}
+          />
         </p>
       </div>
 

@@ -14,11 +14,13 @@ const ChatScreen = ({
   user,
   chats,
   isChatLoading,
+  searchQuery
 }: {
   className?: string,
   user: firebase.default.User | undefined
   chats: Data[] | undefined,
-  isChatLoading: boolean
+  isChatLoading: boolean,
+  searchQuery?: string[]
 }) => {
   const [chatGroupsByDate, setChatGroupsByDate] = useState<ChatGroupByDate[]>([])
 
@@ -57,6 +59,7 @@ const ChatScreen = ({
           <ChatsByDate
             className="px-4 pb-4"
             chatGroupsByDate={chatGroupsByDate}
+            searchQuery={searchQuery}
           />
         )
       ) : (
