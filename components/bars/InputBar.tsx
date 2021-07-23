@@ -20,7 +20,7 @@ const InputBar = ({
   }
 
   return (<>
-    <div className={className + " flex flex-row justify-between md:justify-center items-center bg-gray-200 "}>
+    <div className={className + " flex flex-row items-center bg-gray-200 "}>
       <form
         className="flex flex-row items-center w-full h-full"
         onSubmit={sendMessage}
@@ -47,4 +47,5 @@ const InputBar = ({
     </div>
   </>)
 }
+
 export default InputBar

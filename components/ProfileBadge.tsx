@@ -11,7 +11,7 @@ const ProfileBadge = ({
 }) => {
   return (<>
     <div
-      className={className + " flex flex-row-reverse items-center cursor-pointer "}
+      className={className + " flex flex-row items-center cursor-pointer "}
       onClick={onClick}
     >
       <div
@@ -28,7 +28,7 @@ const ProfileBadge = ({
         />
       </div>
 
-      <p className="hidden md:block mr-2">
+      <p className="ml-2">
         {user?.displayName || "Anonymous"}
       </p>
     </div>

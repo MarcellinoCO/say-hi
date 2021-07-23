@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Head from "next/head"
 
 import firebaseConfig from "@utils/firebaseConfig"
@@ -10,6 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 
 import InputBar from "@components/bars/InputBar"
 import NavBar from "@components/bars/NavBar"
+import SearchBar from "@components/bars/SearchBar"
 import ChatScreen from "@components/screens/ChatScreen"
 import SignInScreen from "@components/screens/SignInScreen"
 
@@ -57,6 +59,10 @@ export default function ChatPage() {
     })
   }
 
+  // Search logic.
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+
   return (<>
     <Head>
       <title>Say Hi!</title>
@@ -64,12 +70,26 @@ export default function ChatPage() {
     </Head>
 
     <div className="flex flex-col justify-between w-screen h-screen font-sans">
-      <NavBar
-        className="w-screen h-14 px-4"
+      {isSearching ? (
+        <SearchBar
+          className="w-screen h-14 px-4"
+          isEnabled={true}
 
-        user={user}
-        onProfileClicked={signOut}
-      />
+          onSearch={(query: string) => setSearchQuery(query)}
+          onClose={() => {
+            setSearchQuery("")
+            setIsSearching(false)
+          }}
+        />
+      ) : (
+        <NavBar
+          className="w-screen h-14 px-4"
+
+          user={user}
+          onProfileClicked={signOut}
+          onSearchClicked={() => setIsSearching(true)}
+        />
+      )}
 
       {user ? (
         <ChatScreen
