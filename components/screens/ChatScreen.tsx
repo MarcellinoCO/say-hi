@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react"
-import { Data } from "react-firebase-hooks/firestore/dist/firestore/types"
+
+import firebaseConfig from "@utils/firebaseConfig"
+import Firebase from "firebase/app"
+import "firebase/firestore"
+
+import { useCollectionData } from "react-firebase-hooks/firestore"
 
 import { Chat } from "@models/Chat"
 import { ChatGroupByDate } from "@models/ChatGroupByDate"
@@ -9,20 +14,25 @@ import LoadingIndicator from "@components/LoadingIndicator"
 
 import groupChatsByDate from "@utils/chats/groupChatsByDate"
 
+/** Initialize Firebase app if none available */
+if (!Firebase.apps.length) Firebase.initializeApp(firebaseConfig)
+const db = Firebase.firestore()
+
 const ChatScreen = ({
   className = "",
   user,
-  chats,
-  isChatLoading,
   searchQuery
 }: {
   className?: string,
   user: firebase.default.User | undefined
-  chats: Data[] | undefined,
-  isChatLoading: boolean,
   searchQuery?: string[]
 }) => {
   const [chatGroupsByDate, setChatGroupsByDate] = useState<ChatGroupByDate[]>([])
+
+  // Database logic.
+  const chatsRef = db.collection("chats")
+  const query = chatsRef.orderBy("createdAt")
+  const [chats, isChatLoading] = useCollectionData(query, { idField: "id" })
 
   useEffect(() => {
     // Ignore update if user is undefined, or chats array is still empty or undefined.

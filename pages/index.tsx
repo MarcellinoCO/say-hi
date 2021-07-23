@@ -2,11 +2,10 @@ import { useState } from "react"
 import Head from "next/head"
 
 import firebaseConfig from "@utils/firebaseConfig"
-import firebase from "firebase/app"
+import Firebase from "firebase/app"
 import "firebase/firestore"
 import "firebase/auth"
 
-import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
 
 import InputBar from "@components/bars/InputBar"
@@ -16,11 +15,11 @@ import ChatScreen from "@components/screens/ChatScreen"
 import SignInScreen from "@components/screens/SignInScreen"
 
 /** Initialize Firebase app if none available */
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
+if (!Firebase.apps.length) Firebase.initializeApp(firebaseConfig)
 
 /** Global Firebase constants. */
-const auth = firebase.auth()
-const db = firebase.firestore()
+const auth = Firebase.auth()
+const db = Firebase.firestore()
 
 export default function ChatPage() {
   // Authentication logic.
@@ -28,7 +27,7 @@ export default function ChatPage() {
   const signInWithGoogle = async () => {
     if (user) return false
 
-    const provider = new firebase.auth.GoogleAuthProvider()
+    const provider = new Firebase.auth.GoogleAuthProvider()
     return auth.signInWithPopup(provider)
       .then((_) => {
         return true
@@ -43,15 +42,12 @@ export default function ChatPage() {
 
   // Database logic.
   const chatsRef = db.collection("chats")
-  const query = chatsRef.orderBy("createdAt")
-  const [chatsCollection, isChatLoading] = useCollectionData(query, { idField: "id" })
-
   const uploadMessage = async (message: string) => {
     if (!auth.currentUser) return
 
     const { uid, displayName, photoURL } = auth.currentUser
     chatsRef.add({
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
       message: message,
       userId: uid,
       userName: displayName,
@@ -96,8 +92,6 @@ export default function ChatPage() {
           className="w-full h-full"
 
           user={user}
-          chats={chatsCollection}
-          isChatLoading={isChatLoading}
           searchQuery={searchQuery}
         />
       ) : (
